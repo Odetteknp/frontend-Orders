@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../state/CartContext';
-import styles from './CartPage.module.css';
+import './CartPage.css';
 
 // ฟอร์แมตราคาเป็น THB (ไม่ปัดทศนิยม)
 const fmtTHB = (n: number) =>
@@ -83,42 +83,42 @@ export default function CartPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.pageTitle}>ยืนยันคำสั่งซื้อ</h2>
+    <div className="container">
+      <h2 className="pageTitle">ยืนยันคำสั่งซื้อ</h2>
 
       {cart.items.length === 0 ? (
         <>
-          <p className={styles.emptyText}>ยังไม่มีสินค้าในตะกร้า</p>
-          <button onClick={() => navigate('/')} className={styles.btnPlain}>
+          <p className="emptyText">ยังไม่มีสินค้าในตะกร้า</p>
+          <button onClick={() => navigate('/')} className="btnPlain">
             กลับไปเลือกเมนู
           </button>
         </>
       ) : (
-        <div className={styles.grid}>
+        <div className="grid">
           {/* LEFT: รายการอาหารในตะกร้า */}
           <div>
-            <div className={styles.card}>
-              <div className={styles.cardHead}>
+            <div className="card">
+              <div className="cardHead">
                 <strong>รายการอาหาร</strong>
-                <button onClick={() => cart.clear()} className={styles.btnDanger}>
+                <button onClick={() => cart.clear()} className="btnDanger">
                   ล้างตะกร้า
                 </button>
               </div>
 
-              <ul className={styles.listReset}>
+              <ul className="listReset">
   {cart.items.map((line) => (
-    <li key={line.id} className={styles.cartLine}>
-      <img src={line.item.image} alt={line.item.name} className={styles.itemImage} />
-      <div className={styles.lineBody}>
-        <div className={styles.itemName}>{line.item.name}</div>
-        <div className={styles.itemMeta}>
+    <li key={line.id} className="cartLine">
+      <img src={line.item.image} alt={line.item.name} className="itemImage" />
+      <div className="lineBody">
+        <div className="itemName">{line.item.name}</div>
+        <div className="itemMeta">
           {Object.entries(line.selected).map(([optId, choiceIds], idx) => {
             if (!Array.isArray(choiceIds)) return null;
             const opt = line.item.options?.find(o => o.id === optId);
             const names = choiceIds
               .map(cid => opt?.choices.find(c => c.id === cid)?.name ?? cid);
             return (
-              <span key={optId} className={styles.itemMetaChip}>
+              <span key={optId} className="itemMetaChip">
                 {idx ? ' | ' : ''}
                 {names.join(', ')}
               </span>
@@ -127,11 +127,11 @@ export default function CartPage() {
           {line.note ? ` • ${line.note}` : null}
         </div>
       </div>
-      <div className={styles.qty}>× {line.quantity}</div>
-      <div className={styles.lineTotal}>{fmtTHB(line.total)}</div>
+      <div className="qty">× {line.quantity}</div>
+      <div className="lineTotal">{fmtTHB(line.total)}</div>
       <button
         onClick={() => cart.removeItem(line.id)}
-        className={styles.btnPlain}
+        className="btnPlain"
       >
         ลบ
       </button>
@@ -140,8 +140,8 @@ export default function CartPage() {
 </ul>
 
 
-              <div className={styles.actionsRow}>
-                <button onClick={() => navigate('/')} className={styles.btnPlain}>
+              <div className="actionsRow">
+                <button onClick={() => navigate('/')} className="btnPlain">
                   เพิ่มเมนูต่อ
                 </button>
               </div>
@@ -149,24 +149,24 @@ export default function CartPage() {
           </div>
 
           {/* RIGHT: สรุปราคา + คูปอง + ที่อยู่ + ชำระเงิน */}
-          <div className={styles.rightCol}>
+          <div className="rightCol">
             {/* สรุปราคา */}
-            <div className={styles.card}>
-              <strong className={styles.blockTitle}>สรุปราคา</strong>
+            <div className="card">
+              <strong className="blockTitle">สรุปราคา</strong>
               <Row label="ยอดรวม" value={fmtTHB(subtotal)} />
               <Row label="ส่วนลด" value={`− ${fmtTHB(discount)}`} />
               <Row label="ค่าส่ง" value={fmtTHB(deliveryFee)} />
-              <div className={styles.hr} />
+              <div className="hr" />
               <Row
-                label={<span className={styles.totalLabel}>ยอดสุทธิ</span>}
-                value={<span className={styles.totalValue}>{fmtTHB(total)}</span>}
+                label={<span className="totalLabel">ยอดสุทธิ</span>}
+                value={<span className="totalValue">{fmtTHB(total)}</span>}
               />
             </div>
 
             {/* โค้ดโปรโมชั่น */}
-            <div className={styles.card}>
-              <strong className={styles.blockTitle}>โค้ดโปรโมชั่น</strong>
-              <div className={styles.inlineFields}>
+            <div className="card">
+              <strong className="blockTitle">โค้ดโปรโมชั่น</strong>
+              <div className="inlineFields">
                 <input
                   value={appliedCode ? appliedCode : promoCode}
                   onChange={(e) =>
@@ -175,30 +175,30 @@ export default function CartPage() {
                       : setPromoCode(e.target.value)
                   }
                   placeholder="เช่น SAVE10 / SAVE50 / SHIPFREE"
-                  className={styles.input}
+                  className="input"
                   aria-label="ระบุโค้ดโปรโมชั่น"
                 />
                 {appliedCode ? (
-                  <button onClick={clearCode} className={styles.btnPlain}>
+                  <button onClick={clearCode} className="btnPlain">
                     ยกเลิก
                   </button>
                 ) : (
-                  <button onClick={applyCode} className={styles.btnPrimary}>
+                  <button onClick={applyCode} className="btnPrimary">
                     ใช้โค้ด
                   </button>
                 )}
               </div>
-              <div className={styles.helpText}>
+              <div className="helpText">
                 ตัวอย่าง: <code>SAVE10</code> ลด 10% • <code>SAVE50</code> ลด 50฿ •{' '}
                 <code>SHIPFREE</code> ส่งฟรี
               </div>
             </div>
 
             {/* ที่อยู่จัดส่ง */}
-            <div className={styles.card}>
-              <strong className={styles.blockTitle}>ที่อยู่จัดส่ง</strong>
-              <div className={styles.vStack}>
-                <label className={styles.radioRow}>
+            <div className="card">
+              <strong className="blockTitle">ที่อยู่จัดส่ง</strong>
+              <div className="vStack">
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="addr"
@@ -207,7 +207,7 @@ export default function CartPage() {
                   />
                   <span>บ้าน: 99/99 ถ.สุขสบาย แขวงสดใส เขตอิ่มใจ กทม. 10110</span>
                 </label>
-                <label className={styles.radioRow}>
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="addr"
@@ -216,7 +216,7 @@ export default function CartPage() {
                   />
                   <span>ที่ทำงาน: 123 อาคาร ABC ชั้น 12 ถ.พหลโยธิน จตุจักร กทม. 10900</span>
                 </label>
-                <label className={styles.radioRow}>
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="addr"
@@ -230,7 +230,7 @@ export default function CartPage() {
                     value={newAddress}
                     onChange={(e) => setNewAddress(e.target.value)}
                     placeholder="พิมพ์ที่อยู่จัดส่งใหม่..."
-                    className={`${styles.input} ${styles.textarea}`}
+                    className={`$"input" $"textarea"`}
                     aria-label="ที่อยู่ใหม่"
                   />
                 )}
@@ -238,10 +238,10 @@ export default function CartPage() {
             </div>
 
             {/* ช่องทางการชำระเงิน */}
-            <div className={styles.card}>
-              <strong className={styles.blockTitle}>ช่องทางการชำระเงิน</strong>
-              <div className={styles.vStack}>
-                <label className={styles.radioRow}>
+            <div className="card">
+              <strong className="blockTitle">ช่องทางการชำระเงิน</strong>
+              <div className="vStack">
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="pay"
@@ -250,7 +250,7 @@ export default function CartPage() {
                   />
                   <span>พร้อมเพย์ (PromptPay)</span>
                 </label>
-                <label className={styles.radioRow}>
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="pay"
@@ -259,7 +259,7 @@ export default function CartPage() {
                   />
                   <span>บัตรเครดิต/เดบิต</span>
                 </label>
-                <label className={styles.radioRow}>
+                <label className="radioRow">
                   <input
                     type="radio"
                     name="pay"
@@ -274,7 +274,7 @@ export default function CartPage() {
             <button
               onClick={onCheckout}
               disabled={!canCheckout}
-              className={`${styles.btnPrimary} ${styles.checkoutBtn}`}
+              className={`$"btnPrimary" $"checkoutBtn"`}
               aria-disabled={!canCheckout}
               aria-label={`ยืนยันคำสั่งซื้อ มูลค่า ${fmtTHB(total)}`}
             >
@@ -290,7 +290,7 @@ export default function CartPage() {
 /** แถวสรุปราคา (label / value) */
 function Row({ label, value }: { label: React.ReactNode; value: React.ReactNode }) {
   return (
-    <div className={styles.row}>
+    <div className="row">
       <div>{label}</div>
       <div>{value}</div>
     </div>

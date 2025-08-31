@@ -5,6 +5,7 @@ import MenuOptionModal from './MenuOptionModal';
 import { SECTIONS, menuItems, type MenuItem } from '../data/menuData';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../state/CartContext';
+import Header from './Header';
 
 type SectionRefs = Record<string, React.RefObject<HTMLDivElement | null>>;
 
@@ -65,6 +66,8 @@ export default function RestaurantMenu() {
   }, [sectionRefs]);
 
   return (
+    <>
+    <Header/>
     <div className="menu-layout">
       {/* LEFT: เมนู + แท็บ */}
       <div className="menu-left">
@@ -73,16 +76,16 @@ export default function RestaurantMenu() {
           <div className="category-tabs">
             {SECTIONS.map((s) => (
               <button
-                key={s.id}
-                data-tab-id={s.id}
-                className={`category-tab ${active === s.id ? 'is-active' : ''}`}
-                onClick={() => {
-                  const el = sectionRefs[s.id]?.current;
-                  if (!el) return;
-                  const stickyH = (tabsRef.current?.offsetHeight ?? 0) + 8;
-                  const top = window.scrollY + el.getBoundingClientRect().top - stickyH;
-                  window.scrollTo({ top, behavior: 'smooth' });
-                }}
+              key={s.id}
+              data-tab-id={s.id}
+              className={`category-tab ${active === s.id ? 'is-active' : ''}`}
+              onClick={() => {
+                const el = sectionRefs[s.id]?.current;
+                if (!el) return;
+                const stickyH = (tabsRef.current?.offsetHeight ?? 0) + 8;
+                const top = window.scrollY + el.getBoundingClientRect().top - stickyH;
+                window.scrollTo({ top, behavior: 'smooth' });
+              }}
               >
                 {s.label}
               </button>
@@ -93,21 +96,21 @@ export default function RestaurantMenu() {
         {/* Sections */}
         {SECTIONS.map((sec) => (
           <section
-            key={sec.id}
-            ref={sectionRefs[sec.id]}
-            data-section-id={sec.id}
-            className="menu-section"
+          key={sec.id}
+          ref={sectionRefs[sec.id]}
+          data-section-id={sec.id}
+          className="menu-section"
           >
             <h2 className="section-title">{sec.label}</h2>
             <div className="menu-grid">
               {itemsBySection[sec.id]?.length ? (
                 itemsBySection[sec.id].map((item, index) => (
                   <MenuItemCard
-                    key={`${sec.id}-${index}`}
-                    name={item.name}
-                    price={item.price}
-                    image={item.image}
-                    onAdd={() => openOptions(item)}
+                  key={`${sec.id}-${index}`}
+                  name={item.name}
+                  price={item.price}
+                  image={item.image}
+                  onAdd={() => openOptions(item)}
                   />
                 ))
               ) : (
@@ -124,7 +127,7 @@ export default function RestaurantMenu() {
         item={choosing}
         onClose={closeOptions}
         onConfirm={handleConfirm}
-      />
+        />
 
       {/* Floating cart */}
       {cart.count > 0 && (
@@ -138,5 +141,6 @@ export default function RestaurantMenu() {
         </button>
       )}
     </div>
+      </>
   );
 }

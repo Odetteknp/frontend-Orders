@@ -187,11 +187,6 @@ export const menuItems: MenuItem[] = [
         { id: 'sz-m', name: 'กลาง', price: 10 },
         { id: 'sz-l', name: 'ใหญ่', price: 20 },
       ]},
-      { id: 'dip', label: 'ซอสจิ้ม', type: 'multiple', choices: [
-        { id: 'dip-k', name: 'ซอสมะเขือเทศ' },
-        { id: 'dip-m', name: 'มายองเนส' },
-        { id: 'dip-c', name: 'ซอสพริก' },
-      ]},
     ]
   },
   { name: 'เฟรนซ์ฟรายส์',     price: '$50', image: frenchfries, sectionId: 'fried' ,
