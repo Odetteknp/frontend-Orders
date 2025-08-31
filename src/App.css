@@ -1,0 +1,132 @@
+.app {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+  margin: 0;              
+  background-color: #fff;
+  color: #333;
+  min-height: 100vh; /* สูงเต็มจอ */    
+}
+
+.header {
+  margin-bottom: 24px;
+  width: 97vw; 
+}
+
+/* ภาพผักบุ้ง */
+.header-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+.header-image-container {
+  position: relative;
+  width: 100%;
+  max-height: 260px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-box {
+  background-color: #fff;
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  min-width: 200px;
+}
+
+.restaurant-name {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* กล่องชื่อร้านซ้อนทับภาพด้านล่างซ้าย */
+.restaurant-overlay {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.rating {
+  font-size: 16px;
+  color: #f39c12;
+}
+.section-title {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  justify-content: center;   /* ✅ จัด grid ให้อยู่กลาง */
+  margin-right: 70px;
+  margin-left: 70px;
+
+}
+
+.menu-item {
+  width: 140px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.03);
+}
+
+.menu-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.menu-item p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.menu-item span {
+  display: block;
+  color: #888;
+  margin: 4px 0;
+}
+
+.add-button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
